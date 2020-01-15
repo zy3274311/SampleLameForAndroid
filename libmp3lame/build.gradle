@@ -1,0 +1,69 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+
+        // This block is different from the one you use to link Gradle
+        // to your CMake or ndk-build script.
+        externalNativeBuild {
+
+            // For ndk-build, instead use the ndkBuild block.
+            cmake {
+
+                // Passes optional arguments to CMake.
+                arguments "-DANDROID_ARM_NEON=TRUE", "-DANDROID_TOOLCHAIN=clang"
+
+                // Sets a flag to enable format macro constants for the C compiler.
+                cFlags "-D__STDC_FORMAT_MACROS", "-DSTDC_HEADERS"
+
+                // Sets optional flags for the C++ compiler.
+                cppFlags "-fexceptions", "-frtti"
+            }
+        }
+
+        // Similar to other properties in the defaultConfig block,
+        // you can configure the ndk block for each product flavor
+        // in your build configuration.
+        ndk {
+            // Specifies the ABI configurations of your native
+            // libraries Gradle should build and package with your APK.
+            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+        }
+    }
+
+    buildTypes {
+        debug {
+            jniDebuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation 'junit:junit:4.12'
+}

@@ -1,0 +1,2 @@
+include ':app', ':libmp3lame'
+rootProject.name='SampleLameForAndroid'

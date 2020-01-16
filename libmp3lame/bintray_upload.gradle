@@ -1,0 +1,18 @@
+//Step I: Add the below line
+apply plugin: 'com.novoda.bintray-release'
+
+//Step II: Add the below publish details
+publish {
+
+    def groupProjectID = 'com.github.zy3274311'
+    def artifactProjectID = 'libmp3lame'
+    def publishVersionID = '0.1.1'
+
+    userOrg = 'zhangying'
+    repoName = 'maven'
+    groupId = groupProjectID
+    artifactId = artifactProjectID
+    publishVersion = publishVersionID
+    desc = 'Simply implement the lame library on android'
+    website = 'https://github.com/zy3274311/SampleLameForAndroid'
+}

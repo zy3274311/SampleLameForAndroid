@@ -5,6 +5,17 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+set(CMAKE_BUILD_TYPE )
+
+# Debug模式设置为最低优化等级，这样能尽可能多的保留Debug信息
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 ")
+
+#设置-s这个对减小体积起主要作用的参数
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -s")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s")
+
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.

@@ -4,6 +4,7 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private View start_btn;
     private View stop_btn;
     private View play_btn;
@@ -38,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
 
         mMP3Recorder = new MP3Recorder();
         mMP3Recorder.setOutputPath(mp3.getPath());
+        mMP3Recorder.setOnDataCaptureListener(new MP3Recorder.OnDataCaptureListener() {
+            @Override
+            public void onDBDataCapture(double volume) {
+                Log.d(TAG, "db value:" + volume);
+            }
+        },300);
         mMP3Recorder.prepare();
     }
 
@@ -93,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
     private void requestPermissions(){
         if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.RECORD_AUDIO}, 0);
+        }
+        if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.MODIFY_AUDIO_SETTINGS)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.MODIFY_AUDIO_SETTINGS}, 0);
         }
         if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);

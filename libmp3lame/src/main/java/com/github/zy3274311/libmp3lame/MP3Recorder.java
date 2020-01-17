@@ -173,7 +173,7 @@ public class MP3Recorder implements Runnable {
                 double mean = v / (double) size;
                 double volume = 0;
                 if (mean > 0) {
-                    volume = 20 * Math.log10(0);
+                    volume = 20 * Math.log10(mean);
                 }
                 lastCaptureTimeMillis = currentTimeMillis;
                 mOnDataCaptureListener.onDBDataCapture(volume);

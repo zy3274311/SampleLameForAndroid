@@ -1,7 +1,4 @@
 apply plugin: 'com.android.library'
-//apply from: 'upload.gradle'
-//apply from: 'bintray_upload.gradle'
-//apply from: 'bintray_plugin_upload.gradle'
 
 android {
     compileSdkVersion 29
@@ -67,6 +64,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     testImplementation 'junit:junit:4.12'
 }
+
+//apply from: 'upload.gradle'
+//apply from: 'bintray_upload.gradle'
+//apply from: 'bintray_plugin_upload.gradle'

@@ -165,11 +165,9 @@ public class MP3Recorder implements Runnable {
             long currentTimeMillis = System.currentTimeMillis();
             if (currentTimeMillis - lastCaptureTimeMillis > rate) {
                 long v = 0;
-                // 将 buffer 内容取出，进行平方和运算
                 for (short audioDatum : audioData) {
                     v += Math.abs(audioDatum);
                 }
-                // 平方和除以数据总长度，得到音量大小。
                 double mean = v / (double) size;
                 double volume = 0;
                 if (mean > 0) {

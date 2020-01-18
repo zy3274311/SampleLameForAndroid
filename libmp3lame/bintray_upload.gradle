@@ -4,9 +4,9 @@ apply plugin: 'com.novoda.bintray-release'
 //Step II: Add the below publish details
 publish {
 
-    def groupProjectID = 'com.github.zy3274311'
-    def artifactProjectID = 'libmp3lame'
-    def publishVersionID = '0.1.1'
+    def groupProjectID = APPLICATION_ID
+    def artifactProjectID = ARTIFACT_ID
+    def publishVersionID = RELEASE_VERSION
 
     userOrg = 'zhangying'
     repoName = 'maven'

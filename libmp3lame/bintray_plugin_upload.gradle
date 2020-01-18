@@ -2,16 +2,15 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 apply plugin: 'com.android.library'
 
-group = 'com.github.zy3274311'
-version = '0.1.1'
+group = APPLICATION_ID
+version = RELEASE_VERSION
+def artifactId = ARTIFACT_ID
 
 bintray {
     Properties properties = new Properties()
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
-    def BINTRAY_USER = properties.get("BINTRAY_USER")
-    def BINTRAY_KEY = properties.get("BINTRAY_KEY")
-    user = 'zhangying'
-    key = '94529b5f55bc7a5d80a98a33172e0c8e5cf1b563'
+    user = properties.get("BINTRAY_USER")
+    key = properties.get("BINTRAY_KEY")
     configurations = ['archives']
     publications = ['MyPublication']
 
@@ -21,13 +20,13 @@ bintray {
 
     pkg {
         repo = 'maven'
-        name = 'libmp3lame'
+        name = artifactId
         desc = 'Simply implement the lame library on android'
         websiteUrl = 'https://github.com/zy3274311/SampleLameForAndroid'
         issueTrackerUrl = 'https://github.com/zy3274311/SampleLameForAndroid/issues'
         vcsUrl = 'https://github.com/zy3274311/bintray-release.git'
         licenses = ['Apache-2.0']
-        labels = ['aar', 'android', 'example']
+        labels = ['aar', 'android', 'mp3']
         publicDownloadNumbers = true
 
     }

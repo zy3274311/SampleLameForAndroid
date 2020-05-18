@@ -159,22 +159,23 @@ public class MP3Recorder implements Runnable {
     }
 
     private long lastCaptureTimeMillis;
-
     private void captureData(short[] audioData, int size) {
         if (mOnDataCaptureListener != null && size > 0) {
             long currentTimeMillis = System.currentTimeMillis();
             if (currentTimeMillis - lastCaptureTimeMillis > rate) {
-                long v = 0;
-                for (short audioDatum : audioData) {
-                    v += Math.abs(audioDatum);
+
+                long sum = 0;
+                for (int i = 0; i < size; i++) {
+                    short audioDatum = audioData[i];
+                    sum += Math.abs(audioDatum);
                 }
-                double mean = v / (double) size;
-                double volume = 0;
-                if (mean > 0) {
-                    volume = 20 * Math.log10(mean);
+
+                double ret = sum*500f/(size * 32767);
+                if (ret >= 100){
+                    ret = 100;
                 }
+                mOnDataCaptureListener.onDBDataCapture(ret);
                 lastCaptureTimeMillis = currentTimeMillis;
-                mOnDataCaptureListener.onDBDataCapture(volume);
             }
         }
     }

@@ -59,6 +59,13 @@ android {
             path file('src/main/cpp/CMakeLists.txt')
         }
     }
+    ndkVersion = '21.1.6352462'
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 
 }
 
@@ -67,6 +74,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 //apply from: 'upload.gradle'
-//apply from: 'bintray_upload.gradle'
+apply from: 'bintray_upload.gradle'
 //apply from: 'bintray_plugin_upload.gradle'

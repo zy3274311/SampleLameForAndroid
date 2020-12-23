@@ -17,19 +17,37 @@ public class MP3Recorder implements Runnable {
     private String path;
 
     //AudioRecorder 录制音频参数
-    private int sampleRateInHz = 44100;
-    private int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
-    private int channelConfigIn = AudioFormat.CHANNEL_IN_MONO;
-
+    private final int sampleRateInHz = 44100;
+    private final int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
+    private final int channelConfigIn = AudioFormat.CHANNEL_IN_MONO;
     //LameEncoder MP3编码输出参数
-    private int sampleRateOutHz = 44100;
-    private int bitrate = 32;
-    private int channelConfigOut = AudioFormat.CHANNEL_IN_MONO;
+    private final int sampleRateOutHz = 44100;
+    private final int bitrate = 32;
+    private final int channelConfigOut = AudioFormat.CHANNEL_IN_MONO;
 
     private OnDataCaptureListener mOnDataCaptureListener;
     private int rate;
+    private final LameFormat format;
 
+    /**
+     * 使用默认音频录制及编码参数
+     */
     public MP3Recorder() {
+        format = new LameFormat();
+        format.setSampleRateInHz(sampleRateInHz);
+        format.setSampleRateOutHz(sampleRateOutHz);
+        format.setBitrate(bitrate);
+        format.setAudioFormat(audioFormat);
+        format.setChannelConfigIn(channelConfigIn);
+        format.setChannelConfigOut(channelConfigOut);
+    }
+
+    /**
+     * 初始化MP3 Recorder
+     * @param format mp3录制及编码参数设置
+     */
+    public MP3Recorder(LameFormat format) {
+        this.format = format;
     }
 
     /**
@@ -49,14 +67,6 @@ public class MP3Recorder implements Runnable {
     }
 
     public void prepare() {
-        LameFormat format = new LameFormat();
-        format.setSampleRateInHz(sampleRateInHz);
-        format.setSampleRateOutHz(sampleRateOutHz);
-        format.setBitrate(bitrate);
-        format.setAudioFormat(audioFormat);
-        format.setChannelConfigIn(channelConfigIn);
-        format.setChannelConfigOut(channelConfigOut);
-
         lameEncoder = new LameEncoder();
         lameEncoder.init(format);
     }
